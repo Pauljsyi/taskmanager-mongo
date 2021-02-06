@@ -44,9 +44,13 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
     db.collection('users').updateOne( 
         { name: "Pablo Escobar" },
         {
-            $set: { "sex": "male", "status": "single"}
+            $set: { "sex": "female", "status": "divorced"}
         }
-    )
+    ).then((result) => {
+        console.log(result.modifiedCount)
+    }).catch((error) => {
+        console.log(error)
+    })
 
 // //inserts many documents into a collection
 //     db.collection('users').insertMany([
