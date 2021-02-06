@@ -1,19 +1,25 @@
 //CRUD operations = create, read, update, delete
 
-const mongodb = require('mongodb');
+// const mongodb = require('mongodb');
 //give us access to the functions necessary to connect to the database so we can perform our CRUD operations.
-const MongoClient = mongodb.MongoClient
+// const MongoClient = mongodb.MongoClient
+// const ObjectID = mongodb.ObjectID
 
-//define the connection URL and the database we're trying to connect to.
-const connectionURL = 'mongodb://127.0.0.1:27017'
-const databaseName = 'task-manager'
+const { MongoClient, ObjectID} = require('mongodb')
 
-MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
-    if (error) {
-      return console.log('Unable to connect to database')
-    } 
+const id = new ObjectID();
+console.log(id)
 
-    const db = client.db(databaseName)
+// //define the connection URL and the database we're trying to connect to.
+// const connectionURL = 'mongodb://127.0.0.1:27017'
+// const databaseName = 'task-manager'
+
+// MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
+//     if (error) {
+//       return console.log('Unable to connect to database')
+//     } 
+
+//     const db = client.db(databaseName)
 // //inserts one document into a collection
 //     db.collection('users').insertOne({
 //         //fields
@@ -46,25 +52,25 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
 
 //     })
 
-    db.collection('tasks').insertMany([
-        {
-            description: 'Mow the lawn',
-            completed: true
-        },
-        {
-            description: 'Feed dogs',
-            completed: false
-        },
-        {
-            description: 'vacuum house',
-            completed: true
-        }
-    ], (error, result) => {
-        if (error) {
-            return console.log('Unable to insert tasks!')
-        }
+//     db.collection('tasks').insertMany([
+//         {
+//             description: 'Mow the lawn',
+//             completed: true
+//         },
+//         {
+//             description: 'Feed dogs',
+//             completed: false
+//         },
+//         {
+//             description: 'vacuum house',
+//             completed: true
+//         }
+//     ], (error, result) => {
+//         if (error) {
+//             return console.log('Unable to insert tasks!')
+//         }
 
-        console.log(result.ops)
-    })
+//         console.log(result.ops)
+//     })
 
-})
+// })
