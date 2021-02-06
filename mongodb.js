@@ -33,13 +33,20 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
     //     console.log(result.ops)
     // })
 
-    db.collection('users').findOne({ name: 'Ted' }, (error, user) => {
-        if (error) {
-            return console.log('Unable to fetch')
-        }
+    // db.collection('users').findOne({ name: 'Ted' }, (error, user) => {
+    //     if (error) {
+    //         return console.log('Unable to fetch')
+    //     }
 
-            console.log('user', user)
-    })
+    //         console.log('user', user)
+    // })
+
+    db.collection('users').updateOne( 
+        { name: "Pablo Escobar" },
+        {
+            $set: { "sex": "male", "status": "single"}
+        }
+    )
 
 // //inserts many documents into a collection
 //     db.collection('users').insertMany([
