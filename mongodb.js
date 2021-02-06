@@ -7,31 +7,39 @@
 
 const { MongoClient, ObjectID} = require('mongodb')
 
+// mongoDB library has defensive programming to add "new" keyword ObjectID().  
 const id = new ObjectID();
-console.log(id)
 
-// //define the connection URL and the database we're trying to connect to.
-// const connectionURL = 'mongodb://127.0.0.1:27017'
-// const databaseName = 'task-manager'
+//define the connection URL and the database we're trying to connect to.
+const connectionURL = 'mongodb://127.0.0.1:27017'
+const databaseName = 'task-manager'
 
-// MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
-//     if (error) {
-//       return console.log('Unable to connect to database')
-//     } 
+MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
+    if (error) {
+      return console.log('Unable to connect to database')
+    } 
 
-//     const db = client.db(databaseName)
-// //inserts one document into a collection
-//     db.collection('users').insertOne({
-//         //fields
-//         name: 'Paul Wall',
-//         age: 27
-//     }, (error, result) => {
-//         if (error) {
-//             return console.log('Unable to insert user')
-//         }
+    const db = client.db(databaseName)
+//inserts one document into a collection
+    // db.collection('users').insertOne({
+    //     //fields
+    //     name: 'Paul Wall',
+    //     age: 27
+    // }, (error, result) => {
+    //     if (error) {
+    //         return console.log('Unable to insert user')
+    //     }
 
-//         console.log(result.ops)
-//     })
+    //     console.log(result.ops)
+    // })
+
+    db.collection('users').findOne({ name: 'Ted' }, (error, user) => {
+        if (error) {
+            return console.log('Unable to fetch')
+        }
+
+            console.log('user', user)
+    })
 
 // //inserts many documents into a collection
 //     db.collection('users').insertMany([
@@ -73,4 +81,4 @@ console.log(id)
 //         console.log(result.ops)
 //     })
 
-// })
+})
