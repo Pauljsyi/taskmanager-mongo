@@ -14,6 +14,7 @@ const User = mongoose.model('User', {
         type: String,
         required: true,
         validate(value) {
+            // console.log('value', value)
             if (!validator.isEmail(value)) {
                 throw new Error('Email is invalid')
             }
@@ -41,7 +42,11 @@ const me = new User({
 me.save().then((me) => {
     console.log(me)
 }).catch((error) => {
-    console.log('Error', error)
+    if (error.errors.email.value === ""){
+       return console.log('email cannot be empty')
+    } 
+    console.log(' catch Error', error)
+    // console.log('Exact Error:', error.errors.email.value)
 })
 
 
