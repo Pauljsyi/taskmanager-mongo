@@ -6,6 +6,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/task-manager', {
     useCreateIndex: true
 })
 
+
 const User = mongoose.model('users', {
     name: {
         type: String,
@@ -28,7 +29,7 @@ const User = mongoose.model('users', {
             // console.log('VALUE',value.length)
             if (value.length <= 6) {
                 throw new Error('PASSWORD MUST BE LONGER THAN 6 CHARACTERS')
-            } else if (value === "password") {
+            } else if (value === allAnagrams("password")) {
                 throw new Error('Password cannot be "password"')
             }
         }
@@ -37,7 +38,7 @@ const User = mongoose.model('users', {
 
 const me = new User({
     name: '   PaUl   ',
-    password: '1233z'
+    password: 'password'
 })
 
 me.save().then((me) => {
