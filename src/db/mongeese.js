@@ -8,11 +8,16 @@ mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api', {
 
 const User = mongoose.model('User', {
     name: {
-        type: String
+        type: String,
+        required: true,
+        //trimming removes empty spaces before and after a string
+        trim: true
     },
     email: {
         type: String,
         required: true,
+        trim: true,
+        lowercase: true,
         validate(value) {
             // console.log('value', value)
             if (!validator.isEmail(value)) {
@@ -35,7 +40,7 @@ const User = mongoose.model('User', {
 
 const me = new User({
     name: 'Jessie',
-    email: '',
+    email: 'JeSsIeJaMeS@GMAIL.com',
     status: 'single'
 })
 
