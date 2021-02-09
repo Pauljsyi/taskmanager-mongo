@@ -11,7 +11,8 @@ const User = mongoose.model('User', {
         type: String,
         required: true,
         //trimming removes empty spaces before and after a string
-        trim: true
+        trim: true,
+        lowercase: true
     },
     email: {
         type: String,
@@ -27,6 +28,7 @@ const User = mongoose.model('User', {
     },
      age: {
         type: Number,
+        default: 0,
         validate(value) {
             if (value < 0) {
                 throw new Error('Age must be a positive number')
@@ -34,14 +36,14 @@ const User = mongoose.model('User', {
         }
     },
     status: {
-        type: String
+        type: String,
+        default: 'N/A'
     }
 })
 
 const me = new User({
-    name: 'Jessie',
-    email: 'JeSsIeJaMeS@GMAIL.com',
-    status: 'single'
+    name: '    PaUl   ',
+    email: 'paulwall@gmail.COM    '
 })
 
 me.save().then((me) => {
