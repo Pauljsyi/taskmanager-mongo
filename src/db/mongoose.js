@@ -25,8 +25,9 @@ const User = mongoose.model('users', {
         type: String,
         trim: true,
         validate(value) {
-            if (value <= 6) {
-                throw new Error('Password must be longer than 6 characters')
+            // console.log('VALUE',value.length)
+            if (value.length <= 6) {
+                throw new Error('PASSWORD MUST BE LONGER THAN 6 CHARACTERS')
             } else if (value === "password") {
                 throw new Error('Password cannot be "password"')
             }
@@ -42,9 +43,9 @@ const me = new User({
 me.save().then((me) => {
     console.log(me)
 }).catch((error) => {
-    if (error.errors.email.value === ""){
-       return console.log('email cannot be empty')
-    } 
+    // if (error.errors.email.value === ""){
+    //    return console.log('email cannot be empty')
+    // } 
     console.log(' catch Error', error)
     // console.log('Exact Error:', error.errors.email.value)
 })
