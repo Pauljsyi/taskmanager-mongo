@@ -1,27 +1,65 @@
 const mongoose = require('mongoose')
+const validator = require('validator')
 
-mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api', {
+mongoose.connect('mongodb://127.0.0.1:27017/task-manager', {
     useNewUrlParser: true,
     useCreateIndex: true
 })
 
-const User = mongoose.model('User', {
+const User = mongoose.model('users', {
     name: {
-        type: String
-    },
+        type: String,
+        required: true,
+        trim: true
+    }, 
     age: {
-        type: Number
+        type: Number,
+        default: 0,
+        validate(value) {
+            if (value < 0) {
+                throw new Error('Age must be a positive number')
+            }
+        }
+    },
+    password: {
+        type: String,
+        trim: true,
+        validate(value) {
+            if (value <= 6) {
+                throw new Error('Password must be longer than 6 characters')
+            } else if (value === "password") {
+                throw new Error('Password cannot be "password"')
+            }
+        }
     }
 })
 
 const me = new User({
-    name: 'Andrew',
-    age: 30
+    name: '   PaUl   ',
+    password: '1233z'
 })
 
 me.save().then((me) => {
     console.log(me)
 }).catch((error) => {
-    console.log('Error: ', error)
+    if (error.errors.email.value === ""){
+       return console.log('email cannot be empty')
+    } 
+    console.log(' catch Error', error)
+    // console.log('Exact Error:', error.errors.email.value)
 })
 
+
+
+
+// email: {
+//     type: String,
+//     // required: true,
+//     trim: true,
+//     lowercase: true,
+//     validate(value) {
+//         if (!validator.isEmail(value)) {
+//             throw new Error('Email is invalid')
+//         }
+//     }
+// }
