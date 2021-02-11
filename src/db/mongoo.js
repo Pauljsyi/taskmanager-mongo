@@ -1,5 +1,18 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
+const passwordValidator = require('password-validator')
+
+const schema = new passwordValidator();
+
+schema
+.is().min(6)                                    
+.is().max(100)                                  
+.has().uppercase()                              
+.has().lowercase()                             
+.has().digits(2)                                
+.has().not().spaces()                          
+.is().not().oneOf(['Passw0rd', 'Password123','password', 'PASSWORD', 'PaSsWoRd', 'pAsSwOrD']);
+
 
 mongoose.connect('mongodb://127.0.0.1:27017/Player-info', {
     useNewUrlParser: true,
@@ -27,13 +40,17 @@ const Player = mongoose.model('Player', {
         type: String,
         required: true,
         validate(value){
-            if (value < 6){
-                throw new Error('password must be greater than 6 letters')
-            } else if (value === "password"){
-                throw new Error(`password cannot be ${value}`)
-            } else if (value === "PASSWORD"){
-                throw new Error(`password cannot be ${value}`)
+            console.log(schema.validate(value))
+            if (schema.validate(value) === false) {
+                throw new Error ('password does not meet requirement')
             } 
+            // if (value < 6){
+            //     throw new Error('password must be greater than 6 letters')
+            // } else if (value === "password"){
+            //     throw new Error(`password cannot be ${value}`)
+            // } else if (value === "PASSWORD"){
+            //     throw new Error(`password cannot be ${value}`)
+            // } 
             
         }
     }
@@ -42,7 +59,7 @@ const Player = mongoose.model('Player', {
 const player = new Player({
     name: 'Player1',
     email: '    player@player.com',
-    password: '123123123'
+    password: 'aBc123!'
 })
 
 player.save().then(() => {
