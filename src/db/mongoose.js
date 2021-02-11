@@ -22,6 +22,17 @@ const User = mongoose.model('users', {
             }
         }
     },
+    email: {
+        type: String,
+        required: true,
+        trim: true,
+        lowercase: true,
+        validate(value) {
+            if (!validator.isEmail(value)) {
+                throw new Error('Email is invalid')
+            }
+        }
+    },
     password: {
         type: String,
         trim: true,
@@ -29,39 +40,32 @@ const User = mongoose.model('users', {
             // console.log('VALUE',value.length)
             if (value.length <= 6) {
                 throw new Error('PASSWORD MUST BE LONGER THAN 6 CHARACTERS')
-            } else if (value === allAnagrams("password")) {
+            } else if (value === "password") {
                 throw new Error('Password cannot be "password"')
+            } else if (value === "PASSWORD") {
+                throw new Error('Password cannot be "PASSWORD"')
             }
+
+            
         }
     }
 })
 
 const me = new User({
     name: '   PaUl   ',
-    password: 'password'
+    email: 'paul@gmail.com',
+    password: '   PaSsWoRd   '
 })
 
 me.save().then((me) => {
     console.log(me)
 }).catch((error) => {
-    // if (error.errors.email.value === ""){
-    //    return console.log('email cannot be empty')
-    // } 
-    console.log(' catch Error', error)
-    // console.log('Exact Error:', error.errors.email.value)
+    if (error.errors.email.value === ""){
+       return console.log('email cannot be empty')
+    } 
+    // console.log(' catch Error', error)
+    console.log('Exact Error:', error.errors.email.reason)
 })
 
 
 
-
-// email: {
-//     type: String,
-//     // required: true,
-//     trim: true,
-//     lowercase: true,
-//     validate(value) {
-//         if (!validator.isEmail(value)) {
-//             throw new Error('Email is invalid')
-//         }
-//     }
-// }
