@@ -1,6 +1,7 @@
 const { request } = require('express')
 const express = require('express')
 require('./src/db/mongoose')
+const Task = require('./src/models/task')
 const User = require('./src/models/user')
 
 const app = express()
@@ -13,6 +14,16 @@ app.post("/users", (req, res) => {
 
     user.save().then(() => {
         res.send(user)
+    }).catch((e) => {
+        res.status(400).send(e)
+    })
+})
+
+app.post("/tasks", (req, res) => {
+    const task = new Task(req.body)
+
+    task.save().then(() => {
+        res.send(task)
     }).catch((e) => {
         res.status(400).send(e)
     })
