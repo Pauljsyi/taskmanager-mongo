@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const validator = require('validator')
+
 
 mongoose.connect('mongodb://127.0.0.1:27017/task-manager', {
     useNewUrlParser: true,
@@ -7,65 +7,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/task-manager', {
 })
 
 
-// const User = mongoose.model('users', {
-//     name: {
-//         type: String,
-//         required: true,
-//         trim: true
-//     }, 
-//     age: {
-//         type: Number,
-//         default: 0,
-//         validate(value) {
-//             if (value < 0) {
-//                 throw new Error('Age must be a positive number')
-//             }
-//         }
-//     },
-//     email: {
-//         type: String,
-//         required: true,
-//         trim: true,
-//         lowercase: true,
-//         validate(value) {
-//             if (!validator.isEmail(value)) {
-//                 throw new Error('Email is invalid')
-//             }
-//         }
-//     },
-//     password: {
-//         type: String,
-//         trim: true,
-//         validate(value) {
-//             // console.log('VALUE',value.length)
-//             if (value.length <= 6) {
-//                 throw new Error('PASSWORD MUST BE LONGER THAN 6 CHARACTERS')
-//             } else if (value === "password") {
-//                 throw new Error('Password cannot be "password"')
-//             } else if (value === "PASSWORD") {
-//                 throw new Error('Password cannot be "PASSWORD"')
-//             }
 
-            
-//         }
-//     }
-// })
 
-// const me = new User({
-//     name: '   PaUl   ',
-//     email: 'paul@gmail.com',
-//     password: '   PaSsWoRd   '
-// })
-
-// me.save().then((me) => {
-//     console.log(me)
-// }).catch((error) => {
-//     if (error.errors.email.value === ""){
-//        return console.log('email cannot be empty')
-//     } 
-//     // console.log(' catch Error', error)
-//     console.log('Exact Error:', error.errors.email.reason)
-// })
 
 
 const Task = mongoose.model('Task', {
@@ -81,12 +24,12 @@ const Task = mongoose.model('Task', {
 })
 
 
-const task = new Task({
-    description: "order take-out"
-})
+// const task = new Task({
+//     description: "order take-out"
+// })
 
-task.save().then(() => {
-    console.log(task)
-}).catch(() => {
-    console.log(error)
-})
+// task.save().then(() => {
+//     console.log(task)
+// }).catch(() => {
+//     console.log(error)
+// })
