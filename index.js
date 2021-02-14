@@ -19,6 +19,21 @@ app.post("/users", (req, res) => {
     })
 })
 
+app.get("/users", (req, res) => {
+    User.find({}).then((users) => {
+        res.send(users)
+    }).catch((e) => {
+        res.status(500).send()
+    })
+})
+
+app.get("/users/:id", (req, res) => {
+    const _id = req.params.id
+    
+
+    console.log(req.params)
+})
+
 app.post("/tasks", (req, res) => {
     const task = new Task(req.body)
 
