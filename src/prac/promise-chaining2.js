@@ -10,3 +10,6 @@ Task.findByIdAndDelete("602caa5269ca902f74d425a7").then((task) => {
 }).catch((e) => {
     console.log(e)
 })
+
+
+
