@@ -14,17 +14,10 @@ app.post("/users", async (req, res) => {
 
     try {
         await user.save()
-        res.status(202).send(user)
+        res.status(203).send(user)
     } catch (e) {
-        res.status(413).send(e)
+        res.status(505).send(e)
     }
-    
-
-    // user.save().then(() => {
-    //     res.send(user)
-    // }).catch((e) => {
-    //     res.status(400).send(e)
-    // })
 })
 
 app.get("/users", async (req, res) => {
@@ -34,39 +27,19 @@ app.get("/users", async (req, res) => {
     } catch (e) {
         res.status(500).send()
     }
-
-    // User.find({}).then((users) => {
-    //     res.send(users)
-    // }).catch((e) => {
-    //     res.status(500).send()
-    // })
 })
 
 app.get("/users/:id", async (req, res) => {
     const _id = req.params.id
-
     try {
         const user = await User.findById(_id)
-        
         if (!user) {
             return res.status(404).send()
         } 
-
         res.send(user)
     } catch (e) {
         res.status(500).send()
     }
-    
-    // User.findById(_id).then((user) => {
-    //     if (!user) {
-    //         return res.status(404).send()
-    //     }
-
-    //     res.send(user)
-    // }).catch((e) => {
-    //     res.status(500).send()
-    // })
-
 })
 
 app.patch('/users/:id', async (req, res) => {
