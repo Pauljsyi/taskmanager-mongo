@@ -14,9 +14,9 @@ app.post("/users", async (req, res) => {
 
     try {
         await user.save()
-        res.status(203).send(user)
+        res.status(201).send(user)
     } catch (e) {
-        res.status(505).send(e)
+        res.status(400).send(e)
     }
 })
 
@@ -89,13 +89,6 @@ app.post("/tasks", async (req, res) => {
     } catch (e) {
         res.status(400).send(e)
     }
-
-    
-    // task.save().then(() => {
-    //     res.send(task)
-    // }).catch((e) => {
-    //     res.status(400).send(e)
-    // })
 })
 
 app.get("/tasks", async (req, res) => {
